@@ -1,32 +1,98 @@
-<h1>Empregados</h1>
-<form action="/empregados" method="POST">
-    <input type="text" name="nome" placeholder="Nome" required>
-    <input type="number" name="salario_bruto" placeholder="Salário Bruto" required>
-    <select name="departamento" required>
-        <option value="1">Administrativo</option>
-        <option value="2">Designer</option>
-        <option value="3">Contabil</option>
-        <option value="4">Fábrica</option>
-    </select>
-    <button type="submit">Adicionar Empregado</button>
-</form>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+    
 
-<form action="/pesquisar" method="POST">
-    <input type="text" name="nome" placeholder="Pesquisar por Nome">
-    <button type="submit">Pesquisar</button>
-</form>
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: large;
+        }
 
-<ul>
-    {{#each empregados}}
-    <li>
-        ID: {{id}}, Nome: {{nome}}, Salário Bruto: {{salario_bruto}}, Salário Líquido: {{salarioLiquido}},
-        Departamento: {{departamento}}
-        <a href="/empregados/edit/{{id}}">Editar</a>
-        <form action="/empregados/delete/{{id}}" method="POST" style="display:inline;">
-            <button type="submit">Excluir</button>
+        .form-container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .link-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        a {
+            margin-right: 10px;
+        }
+    </style>
+    
+    
+    <h1>Empregados</h1>
+
+    <div class="form-container z-depth-1">
+        <form action="/empregados" method="POST">
+            <div class="input-field">
+                <input type="text" name="nome" id="nome" required>
+                <label for="nome">Nome</label>
+            </div>
+            <div class="input-field">
+                <input type="number" name="salario_bruto" id="salario_bruto" required>
+                <label for="salario_bruto">Salário Bruto</label>
+            </div>
+            <div class="input-field">
+                <select name="departamento" required>
+                    <option value="" disabled selected>Selecione o Departamento</option>
+                    <option value="1">Administrativo</option>
+                    <option value="2">Designer</option>
+                    <option value="3">Contábil</option>
+                    <option value="4">Fábrica</option>
+                </select>
+                <label>Departamento</label>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light black" style="border-radius: 5px;">Adicionar Empregado</button>
         </form>
-    </li>
-    {{/each}}
-</ul>
+    </div>
 
-<a href="/salarios">Consultar Maior e Menor Salário</a>
+    <div class="form-container z-depth-1">
+        <form action="/pesquisar" method="POST">
+            <div class="input-field">
+                <input type="text" name="nome" id="pesquisar_nome">
+                <label for="pesquisar_nome">Pesquisar por Nome</label>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light black" style="border-radius: 5px;">Pesquisar</button>
+        </form>
+    </div>
+
+    <ul class="collection">
+        {{#each empregados}}
+        <li class="collection-item">
+            ID: {{id}}<br>
+            Nome: {{nome}}<br>
+            Salário Bruto: {{salario_bruto}}<br>
+            Salário Líquido: {{salarioLiquido}}<br>
+            Departamento: {{departamento}}<br>
+            <a href="/empregados/edit/{{id}}" class="secondary-content"><i class="material-icons">edit</i></a>
+            <form action="/empregados/delete/{{id}}" method="POST" style="display:inline;">
+                <button type="submit" class="btn red lighten-1 btn-small waves-effect waves-light" style="border-radius: 5px;">Excluir</button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+
+    <div class="link-container">
+        <a href="/salarios" class="btn blue waves-effect waves-light" style="border-radius: 5px;">Consultar Maior e Menor Salário</a>
+    </div>
+
+    <!-- Materialize JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        // Initialize Materialize select
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
