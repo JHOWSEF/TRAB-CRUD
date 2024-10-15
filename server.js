@@ -32,25 +32,25 @@ const departamentos = {
     4: 'Fábrica'
 };
 
-// Função para calcular salário líquido
 const calcularSalarioLiquido = (salarioBruto) => {
     const inss = salarioBruto * 0.11;
     let irpf = 0;
+    let calcSalario = 0;
 
     if (salarioBruto > 4664.68) {
         irpf += (salarioBruto - 4664.68) * 0.275;
-        salarioBruto = 4664.68;
+        calcSalario = 4664.68;
     }
     if (salarioBruto > 3751.06) {
-        irpf += (salarioBruto - 3751.06) * 0.225;
-        salarioBruto = 3751.06;
+        irpf += (calcSalario - 3751.06) * 0.225;
+        calcSalario = 3751.06;
     }
     if (salarioBruto > 2826.65) {
-        irpf += (salarioBruto - 2826.65) * 0.15;
-        salarioBruto = 2826.65;
+        irpf += (calcSalario - 2826.65) * 0.15;
+        calcSalario = 2826.65;
     }
     if (salarioBruto > 1903.98) {
-        irpf += (salarioBruto - 1903.98) * 0.075;
+        irpf += (calcSalario - 1903.98) * 0.075;
     }
 
     return salarioBruto - inss - irpf;
